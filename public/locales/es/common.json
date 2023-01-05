@@ -1,0 +1,21 @@
+{
+  "en": "🇺🇸 Inglés",
+  "es": "🇹🇷 Turco",
+  "pr": "🇵🇹 Portugués",
+  "tr": "🇪🇸 Español",
+  "back-to-home": "Zurück zur Hauptseite",
+  "error-with-status": "Auf dem Server ist ein Fehler ({{statusCode}}) aufgetreten",
+  "error-without-status": "Auf dem Server ist ein Fehler aufgetreten",
+  "h1": "Ein einfaches Beispiel",
+  "to-second-page": "Zur zweiten Seite",
+  "title": "INCOME PRODUCING PROPERTIES WITH MINIMUM 10% NET RETURN GUARANTEED!",
+  "ABOUT": "ABOUT US",
+  "HOUSES": "HOUSES",
+  "SERVICES": "SERVICES",
+  "FAQ": "FAQ",
+  "TESTIMONIALS": "TESTIMONIALS",
+  "MEDIA": "MEDIA",
+  "BLOG": "BlOG",
+  "CONTACT": "CONTACT",
+  "CLIENT PORTAL": "CLIENT PORTAL"
+}
