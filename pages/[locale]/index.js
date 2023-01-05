@@ -14,11 +14,6 @@ import {
 
 import { Banner } from "../../components/Banner";
 import Slider from "../../components/Slider";
-import OfficeSlider from "../../components/OfficeSlider";
-
-import Property from "../../public/images/Home/property.jpg";
-import Accounting from "../../public/images/Home/accounting.jpg";
-import Structure from "../../public/images/Home/structuring.jpg";
 import MediaCard from "../../components/MediaCard";
 import ServicesSlider from "../../components/ServicesSlider";
 
@@ -94,13 +89,6 @@ const Homepage = () => {
               {t("seeAll")}
             </Link>
           </div>
-        </section>
-        {/* Offices Section */}
-        <section>
-          <h1 className="text-5xl font-bold font-playflair text-center">
-            {t("officesTitle")}
-          </h1>
-          <OfficeSlider />
         </section>
       </div>
     </div>
