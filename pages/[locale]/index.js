@@ -11,6 +11,7 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 import { Banner } from "../../components/Banner";
 import Slider from "../../components/Slider";
@@ -34,6 +35,7 @@ const styles = {
 const Homepage = () => {
   const { t } = useTranslation("common");
   const [allNews, setAllNews] = useState([]);
+  const router =  useRouter();
 
   const getNews = async () => {
     const collectionRef = collection(db, "medias");
@@ -53,38 +55,38 @@ const Homepage = () => {
       <Banner />
       <div className="max-w-5xl mx-auto my-5">
         {/* Featured Listings Section */}
-        <h1 className="text-5xl font-bold font-playflair text-center">
+        <h1 className="text-5xl font-bold text-center font-playflair">
           SAMPLE HOUSES
         </h1>
         <Slider />
         {/* Services Section */}
 
         <section className="py-10">
-          <p className="text-xl font-light text-center	font-montserrat mb-3">
+          <p className="mb-3 text-xl font-light text-center font-montserrat">
             {t("servicesSub")}
           </p>
-          <h1 className="text-5xl font-bold text-center font-playflair mb-3">
+          <h1 className="mb-3 text-5xl font-bold text-center font-playflair">
             {t("servicesTitle")}
           </h1>
           <ServicesSlider />
         </section>
         {/* Media Section */}
         <section className="flex flex-col gap-5 my-10">
-          <div className="flex flex-col justify-center items-center">
-            <h1 className="text-5xl font-bold font-playflair mb-3">
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="mb-3 text-5xl font-bold font-playflair">
               {t("mediaTitle")}
             </h1>
-            <p className="text-xl font-light	font-montserrat">{t("mediaSub")}</p>
+            <p className="text-xl font-light font-montserrat">{t("mediaSub")}</p>
           </div>
-          <div className="flex justify-center flex-wrap gap-5 lg:flex-nowrap">
+          <div className="flex flex-wrap justify-center gap-5 lg:flex-nowrap">
             {allNews.map((media) => (
-              <MediaCard key={media.id} media={media} />
+              <MediaCard key={media.id} media={media} linkPrefix={`/${router.query.locale}/media/news`} />
             ))}
           </div>
           <div className="flex justify-center">
             <Link
               href="/media"
-              className="border border-black px-4 py-2 hover:bg-black hover:text-white text-center"
+              className="px-4 py-2 text-center border border-black hover:bg-black hover:text-white"
             >
               {t("seeAll")}
             </Link>

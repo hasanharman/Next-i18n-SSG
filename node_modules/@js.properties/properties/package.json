@@ -1,0 +1,68 @@
+{
+  "name": "@js.properties/properties",
+  "version": "0.5.4",
+  "description": "JavaScript .properties parser and stringifier",
+  "keywords": [
+    ".properties",
+    "properties",
+    "parser",
+    "parse",
+    "stringifier",
+    "stringify"
+  ],
+  "repository": "jsproperties/properties",
+  "homepage": "https://github.com/jsproperties/properties",
+  "bugs": "https://github.com/jsproperties/properties/issues",
+  "license": "MIT",
+  "author": "pallxk <github@pallxk.com>",
+  "main": "cjs/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "src/*.js",
+    "src/*.pegjs",
+    "types/*.ts",
+    "cjs/*.js",
+    "cjs/*.map",
+    "umd/*.js",
+    "umd/*.map"
+  ],
+  "scripts": {
+    "version": "npm run prepare && git add -f src cjs umd",
+    "test": "npm run lint && npm run tap",
+    "lint": "eslint .",
+    "tap": "tap test/js/*.test.js",
+    "tap:snapshot": "node test/js/parse.test.js --gen && node test/js/namespace.test.js --gen",
+    "prepare": "npm run pegjs && npm run babel && npm run webpack",
+    "watch": "npm run pegjs:watch & npm run babel:watch & npm run webpack:watch",
+    "pegjs": "pegjs -o src/properties.pegjs.js src/properties.pegjs",
+    "pegjs:watch": "npm-watch pegjs",
+    "babel": "babel -s -d cjs src",
+    "babel:watch": "babel -w -s -d cjs src",
+    "webpack": "webpack --config webpack.dev.js && webpack --config webpack.prod.js",
+    "webpack:watch": "webpack -w --config webpack.dev.js"
+  },
+  "watch": {
+    "pegjs": "src/properties.pegjs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-object-assign": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.8.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "npm-watch": "^0.7.0",
+    "pegjs": "^0.10.0",
+    "pegjs-loader": "^0.5.6",
+    "tap": "^14.10.8",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-merge": "^5.1.3"
+  }
+}

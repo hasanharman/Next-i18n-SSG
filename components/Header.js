@@ -60,18 +60,18 @@ export const Header = ({
               className={styles.logo}
             />
           </Link>
-          <div className="lg:flex items-start gap-5 hidden">
+          <div className="items-start hidden gap-5 lg:flex">
             <Link
               href="/about"
               onMouseEnter={() => setIsShown(true)}
               onMouseLeave={() => setIsShown(false)}
-              className="group relative text-white text-center"
+              className="relative text-center text-white group"
             >
               {about}
               <span className={styles.underline}></span>
               {isShown && (
-                <div className="group-hover:block absolute hidden h-auto ">
-                  <ul className="flex flex-col mt-2 px-2 bg-white/30 shadow text-left whitespace-nowrap">
+                <div className="absolute hidden h-auto group-hover:block ">
+                  <ul className="flex flex-col px-2 mt-2 text-left shadow bg-white/30 whitespace-nowrap">
                     <Link
                       className="py-1 hover:text-sky-700"
                       href="/about/our-team"
@@ -100,22 +100,22 @@ export const Header = ({
               href="/media"
               onMouseEnter={() => setIsShown(true)}
               onMouseLeave={() => setIsShown(false)}
-              className="group relative text-white text-center"
+              className="relative text-center text-white group"
             >
               {media}
               <span className={styles.underline}></span>
               {isShown && (
-                <div className="group-hover:block absolute hidden h-auto ">
-                  <ul className="flex flex-col mt-2 px-2 bg-white/30 shadow text-left whitespace-nowrap">
+                <div className="absolute hidden h-auto group-hover:block ">
+                  <ul className="flex flex-col px-2 mt-2 text-left shadow bg-white/30 whitespace-nowrap">
                     <Link
                       className="py-1 hover:text-sky-700"
-                      href="/media/news"
+                       href={`/${router.query.locale}/media?tab=news`}
                     >
                       NEWS
                     </Link>
                     <Link
                       className="py-1 hover:text-sky-700"
-                      href="/media/blog"
+                      href={`/${router.query.locale}/media?tab=blog`}
                     >
                       BLOG
                     </Link>
@@ -143,13 +143,13 @@ export const Header = ({
               href="/about"
               onMouseEnter={() => setIsShown(true)}
               onMouseLeave={() => setIsShown(false)}
-              className="group relative text-white text-center"
+              className="relative text-center text-white group"
             >
               {t(`${currentLocale}`)}
               <span className={styles.underline}></span>
               {isShown && (
-                <div className="group-hover:block absolute hidden h-auto -ml-5 ">
-                  <ul className="mt-2 px-1 bg-white/30 shadow text-left">
+                <div className="absolute hidden h-auto -ml-5 group-hover:block ">
+                  <ul className="px-1 mt-2 text-left shadow bg-white/30">
                     {i18nextConfig.i18n.locales.map((locale) => {
                       if (locale === currentLocale) return null;
                       return (
@@ -173,11 +173,11 @@ export const Header = ({
           <div className={styles.mobileMenu}>
             {isMobileMenu ? (
               <AiOutlineCloseSquare
-                className="text-3xl absolute right-5 top-5"
+                className="absolute text-3xl right-5 top-5"
                 onClick={onClickMenu}
               />
             ) : (
-              <AiOutlineMenu className="text-3xl mx-10" onClick={onClickMenu} />
+              <AiOutlineMenu className="mx-10 text-3xl" onClick={onClickMenu} />
             )}
             {isMobileMenu ? (
               <div className="w-[300px] h-screen bg-white p-10 flex flex-col gap-3 divide-y">
