@@ -38,7 +38,7 @@ export default function MediaCard(props) {
               {truncate(mediaProps?.en?.summary)}
             </p>
             <div className="flex justify-between">
-              <p className="font-light text-sm">
+              <p className="text-sm font-light">
                 {formatDate(mediaProps.timestamp)}
               </p>
               <Link
@@ -47,8 +47,8 @@ export default function MediaCard(props) {
                 // as="/media/${mediaProps.id}"
                 // as={`/media/${post.slug}`}
                 className="text-sm text-right text-sky-800 hover:text-sky-500"
-                href={`/media/slug=${mediaProps?.id}`}
-                as={`/media/${mediaProps?.id}`}
+                /* href={`/media/slug=${mediaProps?.id}`} */
+                href={`${props.linkPrefix}/${mediaProps?.id}`}
               >
                 Read More
               </Link>
@@ -73,7 +73,7 @@ export default function MediaCard(props) {
               {truncate(mediaProps?.es?.summary)}
             </p>
             <Link
-              href={`/media/${mediaProps.id}`}
+              href={`${props.linkPrefix}/${mediaProps?.id}`}
               className="text-sm text-right text-sky-800 hover:text-sky-500"
             >
               Read More
@@ -98,7 +98,7 @@ export default function MediaCard(props) {
               {truncate(mediaProps?.pr?.summary)}
             </p>
             <Link
-              href={`/media/${mediaProps.id}`}
+              href={`${props.linkPrefix}/${mediaProps?.id}`}
               className="text-sm text-right text-sky-800 hover:text-sky-500"
             >
               Read More
@@ -123,7 +123,7 @@ export default function MediaCard(props) {
               {truncate(mediaProps?.tr?.summary)}
             </p>
             <Link
-              href={`/media/${mediaProps.id}`}
+              href={`${props.linkPrefix}/${mediaProps?.id}`}
               className="text-sm text-right text-sky-800 hover:text-sky-500"
             >
               Devamını Oku

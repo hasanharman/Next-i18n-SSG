@@ -29,7 +29,16 @@ const Media = () => {
   const { t } = useTranslation("common");
 
   const [allNews, setAllNews] = useState([]);
-  const [activeTab, setActiveTab] = useState("News");
+  /* const [activeTab, setActiveTab] = useState("News"); */
+
+  const activeTab = router.query.tab || "news"
+
+  function setActiveTab(tab) {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, tab }
+    })
+  }
 
   const getPosts = async () => {
     const collectionRef = collection(db, "medias");
@@ -49,19 +58,19 @@ const Media = () => {
       {/* Banner */}
       <div className="w-full h-[40vh]  bg-[url('../public/images/Media/banner.jpg')] bg-cover bg-center">
         <div className="bg-black/[.33] p-4 w-full h-full flex items-center justify-center">
-          <div className="px-5 lg:w-1/2 text-center text-white font-playflair leading-10 tracking-wide	text-5xl lg:text-6xl  drop-shadow-xl">
+          <div className="px-5 text-5xl leading-10 tracking-wide text-center text-white lg:w-1/2 font-playflair lg:text-6xl drop-shadow-xl">
             {t("media-title")}
           </div>
         </div>
       </div>
       {/* Content Section */}
       <section className="max-w-5xl mx-auto">
-        <section className="flex flex-col justify-center items-center gap-5 my-5 lg:mx-0">
+        <section className="flex flex-col items-center justify-center gap-5 my-5 lg:mx-0">
           <ul className="flex justify-between gap-3 cursor-pointer">
             <li
-              onClick={() => setActiveTab("News")}
+              onClick={() => setActiveTab("news")}
               className={
-                activeTab == "News"
+                activeTab == "news"
                   ? `${styles.activeTab}`
                   : `${styles.regularTab}`
               }
@@ -69,9 +78,9 @@ const Media = () => {
               NEWS "7"
             </li>
             <li
-              onClick={() => setActiveTab("Blog")}
+              onClick={() => setActiveTab("blog")}
               className={
-                activeTab == "Blog"
+                activeTab == "blog"
                   ? `${styles.activeTab}`
                   : `${styles.regularTab}`
               }
@@ -79,15 +88,15 @@ const Media = () => {
               BLOG
             </li>
           </ul>
-          <div className="w-full flex items-center flex-wrap gap-10 my-5">
-            <div className="flex  items-center gap-1">
-              {activeTab == "News" && (
+          <div className="flex flex-wrap items-center w-full gap-10 my-5">
+            <div className="flex items-center gap-1">
+              {activeTab == "news" && (
                 <div className="flex items-center gap-10">
-                  <div className="flex flex-col justify-start items-start gap-3">
+                  <div className="flex flex-col items-start justify-start gap-3">
                     <div className="flex">
                       <div className="flex gap-3">
                         {allNews.map((media) => (
-                          <MediaCard key={media.id} media={media} />
+                          <MediaCard key={media.id} media={media} linkPrefix={`/${router.query.locale}/media/news`} />
                         ))}
                       </div>
                     </div>
@@ -95,7 +104,7 @@ const Media = () => {
                 </div>
               )}
 
-              {activeTab == "Blog" && (
+              {activeTab == "blog" && (
                 <div className="flex items-center gap-10">
                   <div className="flex flex-col justify-start items-start gap-3 min-h-[40vh]">
                     <h1>Blogs will be added soon</h1>
