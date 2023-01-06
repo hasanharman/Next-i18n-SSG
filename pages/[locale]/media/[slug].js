@@ -12,43 +12,11 @@ import {
 import { db } from "../../../lib/firebase";
 import i18nextConfig from "../../../next-i18next.config";
 
-export default function MediaDetails() {
+export default function MediaDetails({ media: mediaData }) {
   const router = useRouter();
-  const slug = router.query?.slug;
   // const { t } = useTranslation("common");
   const currentLocale = router.query.locale || i18nextConfig.i18n.defaultLocale;
-  const [media, setMedia] = useState();
-
-  // const media = JSON.parse(props.media);
-  console.log("slug", slug);
-
-  async function getMediaWithId() {
-    try {
-      const docRef = doc(db, "medias", router.query.slug);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setMedia(docSnap.data());
-      } else {
-        console.log("No such document!");
-      }
-    } catch (error) {
-      console.log("error!", error);
-    }
-  }
-
-  useEffect(() => {
-    getMediaWithId();
-  }, []);
-
-  if (router.isFallback) {
-    return <h2>The Page is loading...</h2>; //you can add any styles or have a custom page
-  }
-  if (typeof media === "undefined") return <h2>The Page is loading...</h2>;
-
-  // useEffect(() => {}, [router.query.slug, router.isReady]);
-
-  // const mediaContent = JSON.parse(media);
-
+  const media = JSON.parse(mediaData)
   return (
     <div>
       {/* Banner */}
@@ -131,46 +99,40 @@ export default function MediaDetails() {
   );
 }
 
-// export async function getStaticPaths({ locales }) {
-//   const posts = await getAllNews();
-//   const entries = Object.entries(posts);
+export async function getStaticPaths() {
+  const posts = collection(db, "medias");
+  const entries = [];
+  const snapshot = await getDocs(posts);
 
-//   console.log(locales);
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    entries.push({ ...data });
+  });
 
-//   // const posts = collection(db, "medias");
-//   // const entries = [];
-//   // const snapshot = await getDocs(posts);
-//   // snapshot.forEach((doc) => {
-//   //   const data = doc.data();
-//   //   entries.push({ ...data });
-//   // });
+  const paths = entries
+    .map((p) =>
+      i18nextConfig.i18n.locales?.map((l) => ({
+        params: { slug: p.id, locale: l },
+      }))
+    )
+    .flat();
 
-//   const paths = entries.map((p) =>
-//     locales
-//       .map((l) => ({
-//         params: { slug: p.id },
-//         locale: l,
-//       }))
-//       .flat()
-//   );
+  return {
+    paths: paths,
+    fallback: false,
+  };
+}
 
-//   return {
-//     paths: paths,
-//     fallback: "blocking",
-//   };
-// }
+export async function getStaticProps(context) {
+  const slug = context?.params?.slug;
+  const locale = context?.params?.locale;
 
-// export async function getStaticProps(context) {
-//   const slug = context?.params?.slug;
-//   const locale = context?.params?.locale;
+  const docRef = doc(db, "medias", slug);
+  const docSnap = await getDoc(docRef);
 
-//   const docRef = doc(db, "medias", slug);
-//   const docSnap = await getDoc(docRef);
-
-//   return {
-//     props: {
-//       media: JSON.stringify(docSnap.data()) || null,
-//       ...(await serverSideTranslations(locale, ["common"])),
-//     },
-//   };
-// }
+  return {
+    props: {
+      media: JSON.stringify(docSnap.data()) || null,
+    },
+  };
+}
