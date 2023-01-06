@@ -11,10 +11,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
 import i18nextConfig from "../../../next-i18next.config";
+import { useTranslation } from "react-i18next";
+import { getI18nProps } from "../../../lib/getStatic";
 
 export default function MediaDetails({ media: mediaData }) {
   const router = useRouter();
-  // const { t } = useTranslation("common");
+  const { t } = useTranslation("common");
   const currentLocale = router.query.locale || i18nextConfig.i18n.defaultLocale;
   const media = JSON.parse(mediaData)
   return (
@@ -133,6 +135,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       media: JSON.stringify(docSnap.data()) || null,
+      ...await getI18nProps(context, "common")
     },
   };
 }
