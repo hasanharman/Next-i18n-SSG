@@ -35,7 +35,7 @@ export const Header = ({
 }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const currentLocale = router.query.locale || i18nextConfig.i18n.defaultLocale;
+  const currentLocale = router.locale || i18nextConfig.i18n.defaultLocale;
 
   const [isActive, setIsActive] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
