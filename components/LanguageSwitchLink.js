@@ -17,11 +17,11 @@ const LanguageSwitchLink = ({ locale, ...rest }) => {
     pName = pName.replace(`[${k}]`, router.query[k]);
   });
   if (locale) {
-    href = rest.href ? `/${locale}${rest.href}` : pName;
+    href = rest.href || pName; // ? `/${locale}${rest.href}` : pName;
   }
   console.log("test", locale);
   return (
-    <Link href={href} className="mr-3">
+    <Link href={href} locale={locale} className="mr-3">
       <button onClick={() => languageDetector.cache(locale)}>
         {t(`${locale}`)}
       </button>
